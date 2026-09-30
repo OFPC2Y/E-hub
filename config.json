@@ -1,0 +1,7 @@
+{
+    "serial_port": "COM3",
+    "baud_rate": 115200,
+    "ping_target": "8.8.8.8",
+    "interval_seconds": 1,
+    "auto_start": false
+}

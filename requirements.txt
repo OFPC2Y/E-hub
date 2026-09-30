@@ -1,0 +1,10 @@
+psutil>=5.9
+pynvml>=11.5
+pyserial>=3.5
+pystray>=0.19
+Pillow>=10.0
+pythonnet>=3.0
+ping3>=4.0
+pycaw>=20240210
+comtypes>=1.2
+pyinstaller>=6.0
