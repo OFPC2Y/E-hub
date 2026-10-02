@@ -1,22 +1,15 @@
-# 构建产物
-build/
-dist/
-*.spec.bak
-__pycache__/
-*.py[cod]
+# .NET 构建产物
+bin/
+obj/
+.vs/
+*.user
+*.suo
 
 # 运行时生成
 logs/
 config.json.tmp
 
-# 本地虚拟环境
-.venv/
-
-# 打包用的第三方大文件（按需重新下载，不要提交）
+# 打包/下载用的临时大文件（按需重新获取，不要提交）
 *.zip
 *.rar
 output/
-lhm_extracted*/
-lhm_deps/
-hidsharp_extracted/
-external/*_extracted/

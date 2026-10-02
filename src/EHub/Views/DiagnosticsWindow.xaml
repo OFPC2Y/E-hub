@@ -1,0 +1,50 @@
+<Window x:Class="EHub.Views.DiagnosticsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:themes="clr-namespace:EHub.Themes"
+        Title="诊断信息"
+        Width="880" Height="640"
+        ShowInTaskbar="True"
+        WindowStartupLocation="CenterOwner"
+        Background="{x:Static themes:Palette.Background}"
+        Foreground="{x:Static themes:Palette.Text}">
+
+    <TabControl>
+
+        <TabItem Header="LHM 原始传感器">
+            <TextBox x:Name="LhmText"
+                     Style="{StaticResource RawText}"
+                     TextWrapping="NoWrap"
+                     HorizontalScrollBarVisibility="Auto" />
+        </TabItem>
+
+        <TabItem Header="当前数据总览">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBox Grid.Row="0"
+                         x:Name="OverviewText"
+                         Style="{StaticResource RawText}"
+                         TextWrapping="Wrap"
+                         HorizontalScrollBarVisibility="Disabled" />
+
+                <Button Grid.Row="1"
+                        Content="打开日志"
+                        HorizontalAlignment="Right"
+                        Margin="8"
+                        Click="OnOpenLog" />
+            </Grid>
+        </TabItem>
+
+        <TabItem Header="Raw JSON">
+            <TextBox x:Name="RawJsonText"
+                     Style="{StaticResource RawText}"
+                     TextWrapping="NoWrap"
+                     HorizontalScrollBarVisibility="Auto" />
+        </TabItem>
+
+    </TabControl>
+</Window>

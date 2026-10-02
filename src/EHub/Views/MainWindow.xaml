@@ -1,0 +1,352 @@
+<Window x:Class="EHub.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:themes="clr-namespace:EHub.Themes"
+        Title="e-hub 系统监控面板"
+        Width="700" Height="620"
+        MinWidth="620" MinHeight="520"
+        Background="{x:Static themes:Palette.Background}"
+        Foreground="{x:Static themes:Palette.Text}"
+        WindowStartupLocation="CenterScreen">
+
+    <DockPanel>
+
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="文件(_F)">
+                <MenuItem Header="隐藏到托盘" Click="OnHideToTray" />
+                <Separator />
+                <MenuItem Header="退出" Click="OnExit" />
+            </MenuItem>
+            <MenuItem Header="工具(_T)">
+                <MenuItem Header="设置" Click="OnOpenSettings" />
+                <Separator />
+                <MenuItem Header="诊断信息" Click="OnOpenDiagnostics" />
+                <MenuItem Header="查看日志" Click="OnOpenLog" />
+            </MenuItem>
+            <MenuItem Header="帮助(_H)">
+                <MenuItem Header="关于" Click="OnAbout" />
+            </MenuItem>
+        </Menu>
+
+        <Border DockPanel.Dock="Bottom"
+                Background="{x:Static themes:Palette.Card}"
+                Padding="10,4">
+            <TextBlock Text="{Binding StatusText}"
+                       Foreground="{x:Static themes:Palette.Subtext}"
+                       FontSize="12"
+                       TextTrimming="CharacterEllipsis" />
+        </Border>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="9,4">
+            <StackPanel>
+
+                <TextBlock Text="e-hub 系统监控面板" Style="{StaticResource SectionTitle}" />
+
+                <!-- CPU | GPU -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Column="0" Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="CPU" Foreground="{x:Static themes:Palette.Accent}"
+                                       Style="{StaticResource CardTitle}" />
+                            <Border Style="{StaticResource CardRule}"
+                                    Background="{x:Static themes:Palette.Accent}" />
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="型号" Style="{StaticResource RowLabel}" />
+                                <TextBlock Grid.Column="1" Text="{Binding CpuModel}"
+                                           Foreground="{x:Static themes:Palette.Green}"
+                                           Style="{StaticResource RowValue}" />
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="使用率" Style="{StaticResource RowLabel}" />
+                                <TextBlock Grid.Column="1" Text="{Binding CpuPercent}"
+                                           Foreground="{Binding CpuPercentBrush}"
+                                           Style="{StaticResource RowValue}" />
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="温度" Style="{StaticResource RowLabel}" />
+                                <TextBlock Grid.Column="1" Text="{Binding CpuTemp}"
+                                           Foreground="{x:Static themes:Palette.Yellow}"
+                                           Style="{StaticResource RowValue}" />
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="功耗" Style="{StaticResource RowLabel}" />
+                                <TextBlock Grid.Column="1" Text="{Binding CpuPower}"
+                                           Foreground="{x:Static themes:Palette.Pink}"
+                                           Style="{StaticResource RowValue}" />
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="风扇" Style="{StaticResource RowLabel}" />
+                                <TextBlock Grid.Column="1" Text="{Binding CpuFanRpm}"
+                                           Foreground="{x:Static themes:Palette.Pink}"
+                                           Style="{StaticResource RowValue}" />
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="1" Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="GPU" Foreground="{x:Static themes:Palette.Pink}"
+                                       Style="{StaticResource CardTitle}" />
+                            <Border Style="{StaticResource CardRule}"
+                                    Background="{x:Static themes:Palette.Pink}" />
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="型号" Style="{StaticResource RowLabel}" />
+                                <TextBlock Grid.Column="1" Text="{Binding GpuName}"
+                                           Foreground="{x:Static themes:Palette.Green}"
+                                           Style="{StaticResource RowValue}" />
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="使用率" Style="{StaticResource RowLabel}" />
+                                <TextBlock Grid.Column="1" Text="{Binding GpuPercent}"
+                                           Foreground="{Binding GpuPercentBrush}"
+                                           Style="{StaticResource RowValue}" />
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="温度" Style="{StaticResource RowLabel}" />
+                                <TextBlock Grid.Column="1" Text="{Binding GpuTemp}"
+                                           Foreground="{x:Static themes:Palette.Yellow}"
+                                           Style="{StaticResource RowValue}" />
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="显存" Style="{StaticResource RowLabel}" />
+                                <TextBlock Grid.Column="1" Text="{Binding GpuMem}"
+                                           Foreground="{x:Static themes:Palette.Blue}"
+                                           Style="{StaticResource RowValue}" />
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="功耗" Style="{StaticResource RowLabel}" />
+                                <TextBlock Grid.Column="1" Text="{Binding GpuPower}"
+                                           Foreground="{x:Static themes:Palette.Pink}"
+                                           Style="{StaticResource RowValue}" />
+                            </Grid>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="风扇" Style="{StaticResource RowLabel}" />
+                                <TextBlock Grid.Column="1" Text="{Binding GpuFanSpeed}"
+                                           Foreground="{x:Static themes:Palette.Pink}"
+                                           Style="{StaticResource RowValue}" />
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!-- 内存 -->
+                <Border Style="{StaticResource Card}">
+                    <StackPanel>
+                        <TextBlock Text="内存" Foreground="{x:Static themes:Palette.Green}"
+                                   Style="{StaticResource CardTitle}" />
+                        <Border Style="{StaticResource CardRule}"
+                                Background="{x:Static themes:Palette.Green}" />
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="使用率" Style="{StaticResource RowLabel}" />
+                            <TextBlock Grid.Column="1" Text="{Binding MemPercent}"
+                                       Foreground="{Binding MemPercentBrush}"
+                                       Style="{StaticResource RowValue}" />
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="已用/总量" Style="{StaticResource RowLabel}" />
+                            <TextBlock Grid.Column="1" Text="{Binding MemDetail}"
+                                       Style="{StaticResource RowValue}" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- 磁盘 -->
+                <Border Style="{StaticResource Card}">
+                    <StackPanel>
+                        <TextBlock Text="磁盘" Foreground="{x:Static themes:Palette.Yellow}"
+                                   Style="{StaticResource CardTitle}" />
+                        <Border Style="{StaticResource CardRule}"
+                                Background="{x:Static themes:Palette.Yellow}" />
+
+                        <ItemsControl ItemsSource="{Binding Disks}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <!-- 占满剩余宽度，让前几列靠左紧挨着 -->
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="{Binding Mount}" Width="46"
+                                                   Foreground="{x:Static themes:Palette.Subtext}" />
+                                        <TextBlock Grid.Column="1" Text="{Binding Used}"
+                                                   Margin="0,0,12,0"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   Foreground="{x:Static themes:Palette.Text}" />
+                                        <TextBlock Grid.Column="2" Text="{Binding PercentText}" Width="56"
+                                                   Foreground="{Binding PercentBrush}" />
+                                        <TextBlock Grid.Column="3" Text="{Binding Read}" Width="132"
+                                                   Foreground="{x:Static themes:Palette.Green}" />
+                                        <TextBlock Grid.Column="4" Text="{Binding Write}" Width="132"
+                                                   Foreground="{x:Static themes:Palette.Red}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <TextBlock Text="未检测到磁盘" Foreground="{x:Static themes:Palette.Subtext}">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding HasDisks}" Value="False">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+
+                <!-- 网络 -->
+                <Border Style="{StaticResource Card}">
+                    <StackPanel>
+                        <TextBlock Text="网络" Foreground="{x:Static themes:Palette.Blue}"
+                                   Style="{StaticResource CardTitle}" />
+                        <Border Style="{StaticResource CardRule}"
+                                Background="{x:Static themes:Palette.Blue}" />
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="下载速度" Style="{StaticResource RowLabel}" />
+                            <TextBlock Grid.Column="1" Text="{Binding NetDownload}"
+                                       Foreground="{x:Static themes:Palette.Green}"
+                                       Style="{StaticResource RowValue}" />
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="上传速度" Style="{StaticResource RowLabel}" />
+                            <TextBlock Grid.Column="1" Text="{Binding NetUpload}"
+                                       Foreground="{x:Static themes:Palette.Red}"
+                                       Style="{StaticResource RowValue}" />
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="延迟" Style="{StaticResource RowLabel}" />
+                            <TextBlock Grid.Column="1" Text="{Binding NetLatency}"
+                                       Style="{StaticResource RowValue}" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- 系统 -->
+                <Border Style="{StaticResource Card}">
+                    <StackPanel>
+                        <TextBlock Text="系统" Foreground="{x:Static themes:Palette.Subtext}"
+                                   Style="{StaticResource CardTitle}" />
+                        <Border Style="{StaticResource CardRule}"
+                                Background="{x:Static themes:Palette.Subtext}" />
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="音量" Style="{StaticResource RowLabel}" />
+                            <TextBlock Grid.Column="1" Text="{Binding Volume}"
+                                       Foreground="{x:Static themes:Palette.Green}"
+                                       Style="{StaticResource RowValue}" />
+                        </Grid>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="运行时间" Style="{StaticResource RowLabel}" />
+                            <TextBlock Grid.Column="1" Text="{Binding Uptime}"
+                                       Style="{StaticResource RowValue}" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</Window>
